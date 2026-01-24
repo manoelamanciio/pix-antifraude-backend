@@ -57,4 +57,4 @@ O projeto segue uma separação clara de responsabilidades:
 
 ---
 
-##O projeto executa um servidor Node.js na porta 3000, porém o fluxo é demonstrado por meio de chamadas simuladas e logs no terminal, não havendo interface web.
+##O projeto executa um servidor Node.js na porta 3001: http://localhost:3001/

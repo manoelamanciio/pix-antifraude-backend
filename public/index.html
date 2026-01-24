@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Pix Antifraude</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        padding: 40px;
+      }
+
+      .app {
+        background: #ffffff;
+        width: 100%;
+        max-width: 420px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #0a5cff;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        background: #f9fafb;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-size: 14px;
+        color: #333;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        margin-bottom: 14px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: #0a5cff;
+        color: #fff;
+      }
+
+      .alert {
+        background: #fff3cd;
+        border: 1px solid #ffeeba;
+        padding: 14px;
+        border-radius: 8px;
+        margin-top: 16px;
+      }
+
+      .alert h3 {
+        color: #856404;
+        margin-top: 0;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+
+      .btn-accept {
+        background: #28a745;
+        color: #fff;
+        flex: 1;
+      }
+
+      .btn-refuse {
+        background: #dc3545;
+        color: #fff;
+        flex: 1;
+      }
+
+      .status {
+        text-align: center;
+        font-weight: bold;
+        margin-top: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <h1>Pix Antifraude</h1>
+
+      <!-- Simulação Pessoa A -->
+      <div class="card">
+        <h3>📤 Pessoa A — Enviar Pix</h3>
+
+        <label>Nome do remetente</label>
+        <input id="senderName" placeholder="Ex: João" />
+
+        <label>Valor (R$)</label>
+        <input id="value" type="number" placeholder="Ex: 200" />
+
+        <button class="btn-primary" onclick="enviarPix()">Enviar Pix</button>
+      </div>
+
+      <!-- Área Pessoa B -->
+      <div id="receiverArea"></div>
+    </div>
+
+    <script>
+      let currentTransactionId = null;
+
+      async function enviarPix() {
+        const senderName = document.getElementById("senderName").value;
+        const value = document.getElementById("value").value;
+
+        const response = await fetch("/pix/receive", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ senderName, value }),
+        });
+
+        const data = await response.json();
+        currentTransactionId = data.id;
+
+        document.getElementById("receiverArea").innerHTML = `
+        <div class="card">
+          <h3>📥 Pessoa B — Pix Recebido</h3>
+          <p><strong>De:</strong> ${senderName}</p>
+          <p><strong>Valor:</strong> R$ ${value}</p>
+
+          <div class="alert">
+            <h3>${data.alert.title}</h3>
+            <p>${data.alert.message}</p>
+            <p><strong>${data.alert.legal}</strong></p>
+          </div>
+
+          <div class="actions">
+            <button class="btn-accept" onclick="decidirPix(true)">Aceitar</button>
+            <button class="btn-refuse" onclick="decidirPix(false)">Recusar</button>
+          </div>
+        </div>
+      `;
+      }
+
+      async function decidirPix(accepted) {
+        const response = await fetch("/pix/receiver-decision", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            transactionId: currentTransactionId,
+            accepted,
+          }),
+        });
+
+        const data = await response.json();
+
+        document.getElementById("receiverArea").innerHTML += `
+        <div class="status">
+          ✅ Status final: ${data.status}
+        </div>
+      `;
+      }
+    </script>
+  </body>
+</html>

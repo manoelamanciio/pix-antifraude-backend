@@ -1,0 +1,13 @@
+{
+  "name": "pix-antifraude",
+  "version": "1.0.0",
+  "description": "Sistema de confirmação Pix por etapas com antifraude",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,4 +1,4 @@
-# 🚨 Pix Antifraude – Confirmação de Recebimento para Contatos Desconhecidos
+# 🚨 Pix Antifraude – Confirmação de Recebimento para Contatos Desconhecidos.
 
 Este projeto é um **sistema backend em Node.js** que simula um **mecanismo antifraude para Pix**, focado em **transferências enviadas para destinatários desconhecidos**.
 

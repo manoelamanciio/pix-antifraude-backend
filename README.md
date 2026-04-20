@@ -1,32 +1,108 @@
-# 🚀 Sistema Antifraude Pix (Backend Node.js)
+# 💸 Sistema Antifraude Pix
 
-Este projeto simula um sistema backend de validação de transações Pix, utilizando Node.js e JavaScript, com foco em regras de risco e análise antifraude.
+Projeto backend desenvolvido em Node.js que simula o processamento de transações Pix com aplicação de regras básicas de validação e análise de risco.
 
-## 📌 Objetivo
+---
 
-Desenvolver uma aplicação backend capaz de processar transações financeiras e identificar possíveis fraudes através de regras de validação.
+## 🚀 Sobre o projeto
 
-## 🧠 Como funciona
+Este projeto tem como objetivo simular uma camada de verificação em transações Pix, aplicando regras simples de negócio para determinar o status de uma operação.
 
-O sistema recebe dados de uma transação Pix e aplica regras como:
+A aplicação foi desenvolvida com foco em prática de lógica de programação, estruturação de backend e organização de código.
 
-* Verificação de valores suspeitos
-* Análise de padrões de transação
-* Classificação da operação (APROVADO / SUSPEITO / RECUSADO)
+---
 
-## ⚙️ Tecnologias utilizadas
+## ⚙️ Funcionalidades
+
+* Recebimento de transações Pix
+* Validação básica dos dados da transação
+* Análise de risco baseada em regras simples
+* Retorno de status da transação:
+
+  * ✅ Aprovado
+  * ⚠️ Em análise
+  * ❌ Recusado
+
+---
+
+## 🧠 Regras de negócio implementadas
+
+* Transações com valor acima de um determinado limite podem ser marcadas como **"em análise"**
+* Validação de dados obrigatórios da requisição
+* Simulação de decisão baseada em condições simples
+
+---
+
+## 🛠 Tecnologias utilizadas
 
 * Node.js
 * JavaScript
-* Estrutura backend (controllers, lógica de negócio)
 
-## 🔍 Conceitos aplicados
+---
 
-* Backend
-* Lógica de negócio
-* Validação de dados
-* Simulação de regras antifraude
+## 🔌 Estrutura básica
 
-## 🤖 Uso de IA
+O projeto segue uma estrutura simples, com foco na separação de responsabilidades:
 
-Utilizei Inteligência Artificial como apoio no desenvolvimento, auxiliando na estruturação da solução e validação de abordagens, mantendo total entendimento da lógica implementada.
+* Rotas para recebimento das requisições
+* Lógica de processamento das transações
+* Retorno estruturado das respostas
+
+---
+
+## ▶️ Como executar o projeto
+
+```bash
+# Instalar dependências
+npm install
+
+# Executar o servidor
+npm start
+```
+
+---
+
+## 📌 Exemplo de uso
+
+### Requisição
+
+```json
+{
+  "valor": 1200,
+  "chavePix": "email@exemplo.com"
+}
+```
+
+### Resposta
+
+```json
+{
+  "status": "em análise"
+}
+```
+
+---
+
+## 🎯 Objetivo
+
+Este projeto foi desenvolvido como parte da minha formação em desenvolvimento backend, com o objetivo de praticar:
+
+* Lógica de programação
+* Implementação de regras de negócio
+* Estruturação de aplicações backend
+
+---
+
+## 🚀 Próximas melhorias
+
+* Separação em camadas (controllers, services, routes)
+* Implementação de mais regras de análise de risco
+* Criação de novos endpoints
+* Integração com banco de dados
+
+---
+
+## 📫 Autor
+
+Manoel Amâncio
+🔗 LinkedIn: https://www.linkedin.com/in/manoellamanciio
